@@ -1,0 +1,67 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Table Basic - srtdash</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" th:href="@{/assets/images/icon/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/metisMenu.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/slicknav.min.css}">
+    <!-- amchart css -->
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <!-- others css -->
+    <link rel="stylesheet" th:href="@{/assets/css/typography.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/default-css.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
+    <!-- modernizr css -->
+    <script th:src="@{/assets/js/vendor/modernizr-2.8.3.min.js}"></script>
+    <script th:src="@{/assets/js/vendor/jquery-2.2.4.min.js}"></script>
+    <script th:src="@{/assets/js/wangEditor.min.js}"></script>
+    <script th:src="@{/assets/js/ckeditor/ckeditor.js}"></script>
+
+</head>
+
+<body>
+
+<div class="page-container">
+
+    <!--  菜单 -->
+    <div class="sidebar-menu">
+        <div th:replace="/component/manage/base/menu :: html"></div>
+    </div>
+
+    <!--主体-->
+    <div class="main-content">
+        <!--头部-->
+        <div th:replace="/component/manage/base/header :: html"></div>
+
+        <!--核心-->
+        <div class="main-content-inner">
+            <div class="row">
+                <div class="col-lg-12 mt-3">
+                    <div th:replace="/component/manage/product/productdetail :: html"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--尾部-->
+    <div th:replace="/component/manage/base/footer :: html"></div>
+
+</div>
+
+<!--隐藏的侧栏设置-->
+<div th:replace="/component/manage/base/offset :: html"></div>
+
+<!--静态文件-->
+<div th:replace="/component/manage/base/statisc :: html"></div>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div class="footer-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>About E-Market</h2>
+                <div class="heading-border b-color-1"></div>
+                <p>Nam apeirian assentior ei, utquo eros posse verterem. Cum eu error congue saperet. Te eam exerci vulputate consetetur, 								causae consulatu eaper,  apeirian assentior ei, utquo eros posse verterem. Cum eu error congue saperet. Te eam exerci 								vulputate consetetur, causae consulatu eaper</p>
+                <div><a href="">Read More <i class="fa fa-angle-double-right"></i></a></div>
+                <strong>Newsletter</strong>
+                <form class="navbar-for" role="email">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Email Address">
+                        <span class="nav-search"><a href="#"><i class="fa fa-envelope"></i></a></span>
+                    </div>
+                </form>
+                <small>Eros posse verterem congue saperet.</small>
+            </div>
+            <div class="col-sm-6">
+                <h2>Contact us</h2>
+                <div class="heading-border b-color-1"></div>
+                <strong class="media-heading">Address</strong>
+                <p id="address"></p>
+
+                <strong class="media-heading">Phone & Fax</strong>
+                <p id="mobile"></p>
+
+                <strong class="media-heading">E-Mail Address</strong>
+                <p id="email">[[${email}]]</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $.ajax({
+        url:"/mall/customer/commonInfo",
+        success:function (data) {
+            var info = JSON.parse(data)
+            var address = info.address
+            var mobile = info.mobile
+            var email = info.email
+
+            $('#address').text(address)
+            $('#mobile').text(mobile)
+            $('#email').text(email)
+        }
+    })
+</script>
+
+</body>
+</html>

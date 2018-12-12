@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/webuploader/webuploader.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/webuploader/style.css}" />
+</head>
+<body>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+    </ol>
+    <div class="carousel-inner">
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<div id="wrapper">
+    <div id="container">
+        <!--头部，相册选择和格式选择-->
+        <div id="uploader">
+            <div class="queueList">
+                <div id="dndArea" class="placeholder">
+                    <div id="filePicker"></div>
+                </div>
+            </div>
+            <div class="statusBar" style="display:none;">
+                <div class="progress">
+                    <span class="text">0%</span>
+                    <span class="percentage"></span>
+                </div>
+                <div class="info"></div>
+                <div class="btns">
+                    <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/assets/webuploader/webuploader.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/webuploader/upload.js}"></script>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url:'[[@{/homepage/banner/img/preview}]]',
+            success:function (data) {
+                for(var i in data.data){
+                    var index = data.data[i].index
+                    var imgStr = data.data[i].imgStr
+                    var indicatorLi
+                    var carouselItem
+                    if(index==0){
+                        indicatorLi = '<li data-target="#carouselExampleIndicators" data-slide-to="'+index+'" class="active"> </li>'
+                        carouselItem = ' <div class="carousel-item active" ><img class="d-block w-100" src="data:image/jpeg;base64,'+imgStr+'"/></div>'
+                    }else {
+                        indicatorLi = '<li data-target="#carouselExampleIndicators" data-slide-to="'+index+'"> </li>'
+                        carouselItem = ' <div class="carousel-item"><img class="d-block w-100" src="data:image/jpeg;base64,'+imgStr+'"/></div>'
+                    }
+                    $('.carousel-indicators').append(indicatorLi)
+                    $('.carousel-inner').append(carouselItem)
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

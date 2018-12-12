@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.mall.dao.ProductMapper">
+
+    <!--通过产品分类查询所有产品-->
+  <select id="getProductInfoListByCategoryName" parameterType="String" resultType="xb.mall.bean.responseObj.ProductInfoReponse">
+    select info.id as id,
+           info.name as name,
+           info.stock as stock,
+           info.sold as sold,
+           info.stars as stars,
+           info.img_path as imgPath,
+           info.price as price,
+           info.description as description,
+           category.category_name as categoryName,
+           category.id as categoryId
+    from product_info info,product_category category where info.category_id=category.id and category.category_name = #{categorytName,jdbcType=VARCHAR}
+    order by info.sold desc
+  </select>
+
+    <select id="getAll" resultType="xb.mall.bean.responseObj.ProductInfoReponse">
+        select info.id as id,
+               info.name as name,
+               info.stock as stock,
+               info.sold as sold,
+               info.stars as stars,
+               info.img_path as imgPath,
+               info.price as price,
+               info.description as description,
+               category.category_name as categoryName,
+               category.category_desc as categoryDesc,
+               category.id as categoryId
+        from product_info info,product_category category where info.category_id=category.id
+        order by info.sold desc
+    </select>
+
+    <!--通过产品集合查询所有产品-->
+    <select id="getProductListByCollectionId" parameterType="String" resultType="xb.mall.bean.ProductInfo">
+        select info.id as id,
+               info.name as name,
+               info.stock as stock,
+               info.sold as sold,
+               info.stars as stars,
+               info.img_path as imgPath,
+               info.price as price,
+               info.description as description
+        from product_info info
+        where info.id
+                in (select relation.product_id from product_collection_relation relation where relation.collection_id=#{collectionId})
+    </select>
+
+    <!--通过产品ID查询单个产品-->
+    <select id="getProductInfoById" parameterType="String" resultType="xb.mall.bean.responseObj.ProductInfoReponse">
+        select
+        info.id as id,
+        info.name as name,
+        info.stock as stock,
+        info.sold as sold,
+        info.stars as stars,
+        info.img_path as imgPath,
+        info.price as price,
+        info.description as description,
+        category.category_name as categoryName,
+        category.category_desc as categoryDesc,
+        category.id as categoryId,
+        detail.detail_desc as detailDesc,
+        detail.specification_table as specificationTable
+        from product_info info,product_category category,product_detail detail
+        where info.category_id=category.id
+          and info.id = detail.product_id
+          and info.id = #{productId,jdbcType=VARCHAR}
+    </select>
+
+    <!--添加产品集合-->
+    <insert id="addProductCollectionRelationBatch" >
+      insert into product_collection_relation (product_id,collection_id) values
+        <foreach collection ="productIdList" item="productId" separator =",">
+            (#{productId}, #{collectionId})
+        </foreach >
+    </insert>
+
+    <delete id="deleteProductCollectionRelation">
+        delete from product_collection_relation where product_id=#{productId} and collection_id=#{collectionId}
+    </delete>
+
+    <update id="updateProductDetailById" parameterType="xb.mall.bean.requestObj.ProductInfoRequest">
+        update product_detail
+        set detail_desc = #{detailDesc,jdbcType=VARCHAR},
+            specification_table = #{specificationTable,jdbcType=VARCHAR}
+        where product_id = #{id,jdbcType=CHAR}
+    </update>
+
+    <insert id="insertProductDetail" parameterType="xb.mall.bean.requestObj.ProductInfoRequest">
+        insert into product_detail (product_id, detail_desc,specification_table)
+        values (#{id,jdbcType=CHAR}, #{detailDesc,jdbcType=VARCHAR},#{specificationTable,jdbcType=VARCHAR})
+    </insert>
+</mapper>

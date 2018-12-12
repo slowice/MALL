@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />
+</head>
+<body>
+<div>
+    <form id="form" action="#" th:action="@{/manage/product/save}" th:object="${productInfo}" enctype="multipart/form-data" method="post">
+        <input type="hidden" class="form-control" name="id" th:field="*{id}">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="name">产品名称</label>
+                <input class="form-control" name="productName" id="name" th:field="*{name}" placeholder="请输入产品名称" value="">
+            </div>
+            <div class="form-group  col-md-3">
+                <label class="col-form-label">产品分类</label>
+                <select class="form-control" th:field="*{categoryName}">
+                    <option value="autoParts">车配</option>
+                    <option value="blueSpeaker">蓝牙音箱</option>
+                    <option value="toy">儿童玩具</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="price">产品价格</label>
+                <input  class="form-control" name="price" id="price" th:field="*{price}" placeholder="请输出产品价格">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="stock">产品库存</label>
+                <input  class="form-control" name="stock" id="stock" th:field="*{stock}" placeholder="请输出产品库存">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="stock">产品销量</label>
+                <input  class="form-control" name="stock" id="sold" th:field="*{sold}" placeholder="请输出产品销量">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">产品描述</label>
+            <input type="text" class="form-control" name="description" id="description" th:field="*{description}" placeholder="请输入产品描述">
+        </div>
+
+        <div class="form-group">
+            <label for="imgPath">产品图片路径</label>
+            <input type="text" class="form-control" name="imgPath" id="imgPath" th:field="*{imgPath}" placeholder="Apartment, studio, or floor">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="custom-file">
+                <input style="display:none" type="file"  id="image" name="image">
+                <label class="btn btn-primary" for="image"><span>点击上传商品主要图片</span></label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <img type="image" th:src="@{'/product/preview?productId='+${productInfo.id}}" width="300px" id="preview">
+        </div>
+
+        <div class="form-group" id="editor">
+        </div>
+
+        <textarea name="editor1" id="editor1" rows="10" cols="80">
+        </textarea>
+
+        <textarea name="editor2" id="editor2" rows="10" cols="80">
+        </textarea>
+
+        <!--<div class="form-group">-->
+            <!--<input type="hidden"  name="detailDesc" id="detailDesc" th:field="*{detailDesc}" placeholder="请输入产品描述">-->
+        <!--</div>-->
+    </form>
+    <button  id="btn" class="btn btn-primary">提交</button>
+    <script type="text/javascript">
+        function initImagePreview(){
+            $("#image").change(function() {
+                var $file = $(this);
+                var objUrl = $file[0].files[0];
+                //获得一个http格式的url路径:mozilla(firefox)||webkit or chrome
+                var windowURL = window.URL || window.webkitURL;
+                //createObjectURL创建一个指向该参数对象(图片)的URL
+                var dataURL = windowURL.createObjectURL(objUrl);
+                $("#preview").attr("src", dataURL);
+            });
+        }
+
+        function initWangEditor(){
+            var htmlcontent = HTMLDecode("[[${productInfo.detailDesc}]]");
+            var E = window.wangEditor
+            var editor = new E('#editor')
+            var productId = '[[${productInfo.id}]]'
+            editor.customConfig.uploadImgServer = '/mall/product/img/upload'
+            editor.customConfig.uploadFileName = 'img'
+            editor.customConfig.uploadImgParams = {
+                productId: productId
+            }
+            editor.create()
+            editor.cmd.do('insertHTML', htmlcontent)
+            //给提交按钮添加可以提交富文本内容的功能
+            document.getElementById('btn').addEventListener('click', function () {
+                // 读取 html
+                var myform=$('#form'); //得到form对象
+                var tmpInput=$("<input type='text' name='detailDesc'/>");
+                tmpInput.attr("value", editor.txt.html());
+                myform.append(tmpInput);
+                myform.submit();
+            }, false)
+        }
+
+        function initDetailDesc(){
+            var htmlcontent = HTMLDecode("[[${productInfo.detailDesc}]]");
+            $('#editor1').html(htmlcontent)
+
+            var imgUploadUrl = '/mall/ckupload?productId=' +  '[[${productInfo.id}]]'
+            CKEDITOR.editorConfig = function( config ) {
+                config.image_previewText = '233';//预览区域显示内容
+            }
+
+            CKEDITOR.replace( 'editor1' ,{
+                filebrowserBrowseUrl: '/browser/browse.php?type=Files',
+                filebrowserImageUploadUrl : imgUploadUrl,
+                filebrowserUploadMethod : 'form',
+                language: 'zh-cn'
+            });
+
+            var htmlcontent2 = HTMLDecode("[[${productInfo.specificationTable}]]");
+            $('#editor2').html(htmlcontent2)
+            CKEDITOR.replace( 'editor2' ,{
+                language: 'zh-cn'
+            });
+
+            document.getElementById('btn').addEventListener('click', function () {
+                // 读取 html
+                var myform=$('#form'); //得到form对象
+                var tmpInput1=$("<input type='text' name='detailDesc'/>");
+                tmpInput1.attr("value", CKEDITOR.instances.editor1.getData());
+                myform.append(tmpInput1);
+
+                var tmpInput2=$("<input type='text' name='specificationTable'/>");
+                tmpInput2.attr("value", CKEDITOR.instances.editor2.getData());
+                myform.append(tmpInput2);
+                myform.submit();
+            }, false)
+        }
+
+
+        $(function() {
+            initImagePreview();
+            initDetailDesc();
+        });
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Dashboard Template for Bootstrap</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:replace="/component/base/navbar :: html"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="/component/base/menu :: html"></div>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div th:replace="/component/base/404 :: html"></div>
+        </main>
+    </div>
+</div>
+</body>
+</html>

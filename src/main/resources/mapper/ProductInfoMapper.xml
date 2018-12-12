@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.mall.dao.ProductInfoMapper">
+  <resultMap id="BaseResultMap" type="xb.mall.bean.ProductInfo">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="sold" jdbcType="INTEGER" property="stock" />
+    <result column="img_path" jdbcType="VARCHAR" property="imgPath" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="category_id" jdbcType="CHAR" property="categoryId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from product_info
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="xb.mall.bean.ProductInfo">
+    insert into product_info (id, name, stock, sold,
+      img_path, price, description, 
+      category_id)
+    values (#{id,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{stock,jdbcType=INTEGER}, #{sold,jdbcType=INTEGER},
+      #{imgPath,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{description,jdbcType=VARCHAR}, 
+      #{categoryId,jdbcType=CHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="xb.mall.bean.ProductInfo">
+    update product_info
+    set name = #{name,jdbcType=VARCHAR},
+      stock = #{stock,jdbcType=INTEGER},
+      sold = #{sold,jdbcType=INTEGER},
+      img_path = #{imgPath,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      description = #{description,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=CHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, name, stock,sold, img_path, price, description, category_id
+    from product_info
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, stock,sold, img_path, price, description, category_id
+    from product_info
+  </select>
+</mapper>

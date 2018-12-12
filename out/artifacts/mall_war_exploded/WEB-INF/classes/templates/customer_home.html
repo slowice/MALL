@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+		<meta charset="utf-8">
+
+		<title>ChinaZ</title>
+		<!-- ALL STYLESHEET -->
+        <link th:href="@{/frontend/css/bootstrap.min.css}" rel="stylesheet">
+		<link th:href="@{/frontend/css/font-awesome.min.css}" rel="stylesheet">
+		<link th:href="@{/frontend/css/style.css}" rel="stylesheet">
+		<link th:href="@{/frontend/css/responsive.css}" rel="stylesheet">
+    </head>
+	<body>
+		
+		<!-- header -->
+		<header class="header">
+			<div th:replace="/component/customer/base/menu :: html"></div>
+		</header>	
+		
+		<!-- 轮播图 -->
+		<section class="home">
+			<div class="intro">
+				<div id="home" class="carousel slide" data-ride="carousel">
+					<ol id="banner-indicators" class="carousel-indicators"></ol>
+					<div id="banner-item" class="carousel-inner" role="listbox"></div>
+					<!-- Controls -->
+					<a class="left carousel-control" href="#home" role="button" data-slide="prev">
+						<i class="fa fa-angle-left"></i>
+					</a>
+					<a class="right carousel-control" href="#home" role="button" data-slide="next">
+						<i class="fa fa-angle-right"></i>
+					</a>
+				</div>
+			</div>
+		</section>	
+
+		<!-- featured product -->
+		<section class="featured-product">
+			<div th:replace="/component/customer/content/featured :: html"></div>
+		</section>
+		
+		<!-- middle ads -->
+		<section class="emarket-adds">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4" th:each="middleAds: ${middleAdsList}">
+						<!--<div class="single-add">-->
+							<!--<h4>Get <span>50%</span> Discount</h4>-->
+							<!--<a href="#" class="btn btn-default" role="button">Learn More</a>-->
+							<img class="img-responsive img-thumbnail" th:src="'data:image/jpeg;base64,'+${middleAds.imgStr}"/>
+						<!--</div>-->
+					</div>
+				</div>
+			</div>
+		</section>	
+
+		<!-- special price -->
+		<section class="special-price">
+			<div class="price-intro">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="pull-left">
+								<blockquote>
+								<h1> iPhone 6 16Gb Gold</h1>
+								<p>Cicero famously orated against his political opponent Lucius Sergius against his political. </p>
+								</blockquote>
+							</div>
+
+							<div class="pull-right"><a class="btn btn-default btn-lg"> Call to Action</a>
+							</div> 
+						</div>
+					</div> <!-- section title -->
+
+				</div>
+			</div>
+		</section>	
+			
+		<!-- product info -->
+		<section class="product-info">
+			<div class="container">
+				<div class="row">	
+					<div class="col-sm-4">
+						<h1><span class="t-color-3">汽配</span></h1>
+						<div class="heading-border b-color-3"></div>
+						<ul class="media-list">
+							<li class="media" th:each="autoPart:${autoParts}">
+								<div class="media-left text-center" >
+									<img class="" th:src="@{'/product/preview?productId='+${autoPart.id}}" width="122px;" alt="">
+									<a th:href="@{'/customer/product/detail/'+${autoPart.id}}"><i class="fa fa-eye"></i></a>
+								</div>
+								<div class="media-body">
+							    <h3 class="media-heading">[[${autoPart.name}]]</h3>
+									<div class="category">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star-o"></i>
+									</div>
+									<strong>$[[${autoPart.price}]]</strong>
+								</div>
+							</li>
+
+						</ul>
+					</div>
+					<div class="col-sm-4">
+						<h1><span class="t-color-4">蓝牙音箱</span></h1>
+						<div class="heading-border b-color-4"></div>
+						<ul class="media-list">
+							<li class="media" th:each="speaker:${blueSpeaker}">
+								<div class="media-left text-center" >
+									<img class="" th:src="@{'/product/preview?productId='+${speaker.id}}" width="122px;" alt="">
+									<a th:href="@{'/customer/product/detail/'+${speaker.id}}"><i class="fa fa-eye"></i></a>
+								</div>
+								<div class="media-body">
+									<h3 class="media-heading">[[${speaker.name}]]</h3>
+									<div class="category">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star-o"></i>
+									</div>
+									<strong>$[[${speaker.price}]]</strong>
+								</div>
+							</li>
+
+						</ul>
+					</div>	
+					<div class="col-sm-4">
+						<h1><span class="t-color-5">儿童玩具</span></h1>
+						<div class="heading-border b-color-5"></div>
+						<ul class="media-list">
+							<li class="media" th:each="singletoy:${toy}">
+								<div class="media-left text-center" >
+									<img class="" th:src="@{'/product/preview?productId='+${singletoy.id}}" width="122px;" alt="">
+									<a th:href="@{'/customer/product/detail/'+${singletoy.id}}"><i class="fa fa-eye"></i></a>
+								</div>
+								<div class="media-body">
+									<h3 class="media-heading">[[${singletoy.name}]]</h3>
+									<div class="category">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star-o"></i>
+									</div>
+									<strong>$[[${singletoy.price}]]</strong>
+								</div>
+							</li>
+
+						</ul>
+					</div>	
+				</div>
+			</div>
+		</section>	
+
+		<footer>
+			<div th:replace="/component/customer/base/footer :: html"></div>
+		</footer>
+
+		<div th:replace="/component/customer/base/statisc :: html"></div>
+
+
+		<!-- ALL JAVASCRIPT -->
+
+		<script type="text/javascript">
+			function initBanner(){
+			    $.ajax({
+					url:'[[@{/homepage/banner/img/preview}]]',
+					success:function (data) {
+                        for(var i in data.data){
+                            var index = data.data[i].index
+                            var imgStr = data.data[i].imgStr
+                            var indicatorLi
+                            var carouselItem
+                            if(index==0){
+                                carouselItem = ' <div class="item active"><img class="d-block w-100" src="data:image/jpeg;base64,'+imgStr+'"/></div>'
+                                indicatorLi =  '<li data-target="#home" data-slide-to="'+index+'" class="active"></li>'
+                            }else {
+                                indicatorLi =  '<li data-target="#home" data-slide-to="'+index+'"></li>'
+                                carouselItem = ' <div class="item"><img class="d-block w-100" src="data:image/jpeg;base64,'+imgStr+'"/></div>'
+                            }
+                            $('#banner-indicators').append(indicatorLi)
+                            $('#banner-item').append(carouselItem)
+                        }
+                    }
+				})
+			}
+
+			$(function () {
+                initBanner()
+			    //文字转...
+                $(".description").each(function() {
+                    var maxwidth =12;//显示多少字符
+                    if ($(this).text().length > maxwidth) {
+                        $(this).text($(this).text().substring(0, maxwidth));
+                        $(this).html($(this).html() + '...');
+                    }
+                });
+
+            })
+		</script>
+    </body>
+</html>

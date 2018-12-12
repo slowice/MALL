@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="">
+                <h1><span class="t-color-1">特色</span> 产品</h1>
+                <div class="heading-border b-color-1"></div>
+            </div>
+        </div>
+    </div> <!-- section title -->
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!--翻页按钮-->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"><i class="fa fa-angle-left"></i></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"><i class="fa fa-angle-right"></i></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <div class="row">
+                    <div class="col-sm-3" th:each="feature: ${features1}">
+                        <div class="thumbnail">
+										<span class="service-link text-center">
+											<!--产品图片-->
+											<img class="img-responsive" th:src="@{'/product/preview?productId='+${feature.id}}" width="230px" height="187px">
+                                            <!--产品图片链接-->
+											<div class="list-inline">
+												<a th:href="@{'/customer/product/detail/'+${feature.id}}"><i class="fa fa-eye"></i></a>
+												<!--<a href=""><i class="fa fa-link"></i></a>-->
+											</div>
+										</span>
+                            <div class="caption">
+                                <div class="category">[[${feature.name}]]</div>
+                                <!--产品描述-->
+                                <h3 class="description">[[${feature.description}]]</h3>
+                                <!--产品价格-->
+                                <strong>$[[${feature.price}]]</strong>
+                                <!--添加到购物车-->
+                                <div><a href="#" class="btn btn-default" role="button">Add to Cart</a><span class="pull-right"><i class="fa fa-heart-o"></i> Add to Wishlist</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="row">
+                    <div class="col-sm-3" th:each="feature: ${features2}">
+                        <div class="thumbnail">
+										<span class="service-link text-center">
+											<!--产品图片-->
+											<img class="img-responsive" th:src="@{'/product/preview?productId='+${feature.id}}" width="230px" height="187px">
+                                            <!--产品图片链接-->
+											<div class="list-inline">
+												<a href=""><i class="fa fa-eye"></i></a>
+												<a href=""><i class="fa fa-link"></i></a>
+											</div>
+										</span>
+                            <div class="caption">
+                                <div class="category">[[${feature.name}]]</div>
+                                <!--产品描述-->
+                                <h3 class="description">[[${feature.description}]]</h3>
+                                <!--产品价格-->
+                                <strong>$[[${feature.price}]]</strong>
+                                <!--添加到购物车-->
+                                <div><a href="#" class="btn btn-default" role="button">Add to Cart</a><span class="pull-right"><i class="fa fa-heart-o"></i> Add to Wishlist</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

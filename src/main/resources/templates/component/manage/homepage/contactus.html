@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />
+</head>
+<body>
+<div>
+    <form action="#" th:action="@{/manage/product/save}" th:object="${productInfo}" enctype="multipart/form-data" method="post">
+        <input type="hidden" class="form-control" name="id" th:field="*{id}">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="name">产品名称</label>
+                <input class="form-control" name="productName" id="name" th:field="*{name}" placeholder="请输入产品名称" value="">
+            </div>
+            <div class="form-group  col-md-3">
+                <label class="col-form-label">产品分类</label>
+                <select class="form-control" th:field="*{categoryName}">
+                    <option value="autoParts">车配</option>
+                    <option value="blueSpeaker">蓝牙音箱</option>
+                    <option value="toy">儿童玩具</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="price">产品价格</label>
+                <input  class="form-control" name="price" id="price" th:field="*{price}" placeholder="请输出产品价格">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="stock">产品库存</label>
+                <input  class="form-control" name="stock" id="stock" th:field="*{stock}" placeholder="请输出产品库存">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="stock">产品销量</label>
+                <input  class="form-control" name="stock" id="sold" th:field="*{sold}" placeholder="请输出产品销量">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">产品描述</label>
+            <input type="text" class="form-control" name="description" id="description" th:field="*{description}" placeholder="请输入产品描述">
+        </div>
+
+        <div class="form-group">
+            <label for="imgPath">产品图片路径</label>
+            <input type="text" class="form-control" name="imgPath" id="imgPath" th:field="*{imgPath}" placeholder="Apartment, studio, or floor">
+        </div>
+
+
+
+        <div class="input-group mb-3">
+            <div class="custom-file">
+                <input style="display:none" type="file"  id="image" name="image">
+                <label class="btn btn-primary" for="image"><span>上传图片</span></label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <img type="image" th:src="@{'/product/preview?productId='+${productInfo.id}}" width="300px" id="preview">
+        </div>
+
+        <button type="submit" class="btn btn-primary">提交</button>
+    </form>
+
+    <script type="text/javascript">
+
+    </script>
+</div>
+</body>
+</html>

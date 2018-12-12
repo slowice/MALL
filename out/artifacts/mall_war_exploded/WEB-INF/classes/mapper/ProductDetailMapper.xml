@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.mall.dao.ProductDetailMapper">
+  <resultMap id="BaseResultMap" type="xb.mall.bean.ProductDetail">
+    <id column="product_id" jdbcType="CHAR" property="productId" />
+    <result column="detail_desc" jdbcType="LONGVARCHAR" property="detailDesc" />
+    <result column="specification_table" jdbcType="LONGVARCHAR" property="specificationTable" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from product_detail
+    where product_id = #{productId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="xb.mall.bean.ProductDetail">
+    insert into product_detail (product_id, detail_desc, specification_table
+      )
+    values (#{productId,jdbcType=CHAR}, #{detailDesc,jdbcType=LONGVARCHAR}, #{specificationTable,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="xb.mall.bean.ProductDetail">
+    update product_detail
+    set detail_desc = #{detailDesc,jdbcType=LONGVARCHAR},
+      specification_table = #{specificationTable,jdbcType=LONGVARCHAR}
+    where product_id = #{productId,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select product_id, detail_desc, specification_table
+    from product_detail
+    where product_id = #{productId,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select product_id, detail_desc, specification_table
+    from product_detail
+  </select>
+</mapper>
